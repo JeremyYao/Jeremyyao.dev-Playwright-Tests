@@ -62,7 +62,7 @@ CI fails on a type error or an unformatted file, so running these first saves a 
 
 ## Continuous Integration
 
-GitHub Actions runs the checks and the tests on every push, to any branch. Each run's summary page shows whether they passed, and has the HTML report to download as the `playwright-report` artifact, with a trace for any test that failed.
+GitHub Actions runs the checks and the tests on every push, to any branch, and every night at 07:17 UTC against `main`. To run them on demand, such as right after deploying the site, use **Run workflow** on the repo's Actions tab. Each run's summary page shows whether they passed, and has the HTML report to download as the `playwright-report` artifact, with a trace for any test that failed.
 
 ## Troubleshooting
 

@@ -1,7 +1,17 @@
 name: E2E tests
 
-# Runs the Playwright tests against jeremyyao.dev on every push, to any branch.
-on: push
+# Runs the Playwright tests against jeremyyao.dev on every push, to any branch,
+# and nightly, to catch a change to the site itself, which lives in another
+# repo and so never triggers a push here.
+on:
+  push:
+  schedule:
+    # 07:17 UTC: 3:17 AM Eastern in summer, 2:17 AM in winter. Off the hour,
+    # because GitHub delays or drops more of the runs scheduled on it.
+    - cron: "17 7 * * *"
+  # Adds a "Run workflow" button to the Actions tab, for a run on demand, such
+  # as right after deploying the site.
+  workflow_dispatch:
 
 jobs:
   e2e:
