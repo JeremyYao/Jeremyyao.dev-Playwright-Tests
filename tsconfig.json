@@ -1,0 +1,14 @@
+{
+  // Only for type-checking with `yarn typecheck`: Playwright runs the
+  // TypeScript itself and skips the checks.
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "types": ["node"],
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true
+  },
+  "include": ["e2e", "playwright.config.ts"]
+}

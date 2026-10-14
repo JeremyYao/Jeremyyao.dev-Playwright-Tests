@@ -1,8 +1,3 @@
-/**
- * Copyright © 2026 Jeremy Yao
- * PROPRIETARY AND CONFIDENTIAL
- * Unauthorized copying of this file, via any medium is strictly prohibited
- */
 import { defineConfig, devices } from "@playwright/test";
 
 /**
@@ -16,6 +11,9 @@ export default defineConfig({
   // Runs the tests within a file side by side too, not just the files. Safe
   // because each test gets its own browser profile and shares nothing.
   fullyParallel: true,
+  // Fails a CI run that contains a `test.only` left in by mistake, which would
+  // otherwise run that one test and skip the rest.
+  forbidOnly: !!process.env.CI,
   // Prints each test as it runs, and writes an HTML report to open with
   // `yarn playwright show-report`.
   reporter: [["list"], ["html", { open: "never" }]],

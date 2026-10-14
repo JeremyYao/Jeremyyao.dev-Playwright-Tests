@@ -1,0 +1,43 @@
+name: E2E tests
+
+# Runs the Playwright tests against jeremyyao.dev on every push, to any branch.
+on: push
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      # The quick checks run first, so a typo fails the run in seconds.
+      - name: Type-check
+        run: yarn typecheck
+
+      - name: Check formatting
+        run: yarn format:check
+
+      # --with-deps also installs the Linux libraries Chromium needs.
+      - name: Install Chromium
+        run: yarn playwright install --with-deps chromium
+
+      - name: Run tests
+        run: yarn test:e2e
+
+      # The HTML report, with a trace for each failed test, downloadable from
+      # the run's summary page. Uploaded whether the tests pass or fail.
+      - name: Upload report
+        uses: actions/upload-artifact@v7
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 14

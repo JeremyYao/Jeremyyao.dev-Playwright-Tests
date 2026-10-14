@@ -4,10 +4,15 @@
   "description": "Playwright end-to-end tests for jeremyyao.dev",
   "scripts": {
     "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui"
+    "test:e2e:ui": "playwright test --ui",
+    "typecheck": "tsc",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "devDependencies": {
     "@playwright/test": "^1.64.0",
-    "@types/node": "^26.6.5"
+    "@types/node": "^24.19.2",
+    "prettier": "3.9.10",
+    "typescript": "^7.0.2"
   }
 }
