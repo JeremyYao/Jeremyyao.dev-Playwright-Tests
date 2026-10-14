@@ -1,8 +1,3 @@
-/**
- * Copyright © 2026 Jeremy Yao
- * PROPRIETARY AND CONFIDENTIAL
- * Unauthorized copying of this file, via any medium is strictly prohibited
- */
 import { expect, test } from "@playwright/test";
 
 // Forms: find a field by its label, type into it, and check the validation
@@ -25,7 +20,9 @@ test("a required field left empty shows an error", async ({ page }) => {
   await expect(page.getByText("Name is required.")).toBeVisible();
 });
 
-test("an invalid email address shows an error until it is fixed", async ({ page }) => {
+test("an invalid email address shows an error until it is fixed", async ({
+  page,
+}) => {
   const email = page.getByLabel("Email");
   const error = page.getByText("Please enter a valid email address.");
 

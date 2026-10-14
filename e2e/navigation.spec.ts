@@ -1,8 +1,3 @@
-/**
- * Copyright © 2026 Jeremy Yao
- * PROPRIETARY AND CONFIDENTIAL
- * Unauthorized copying of this file, via any medium is strictly prohibited
- */
 import { expect, test } from "@playwright/test";
 
 // The basics: open a page, find elements the way a visitor would (by role and
@@ -15,10 +10,14 @@ test("the home page shows the name as its heading", async ({ page }) => {
   await page.goto("/");
 
   await expect(page).toHaveTitle(/Jeremy Yao/);
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Jeremy Yao");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+    "Jeremy Yao",
+  );
 });
 
-test("a navbar link opens its page and is marked as current", async ({ page }) => {
+test("a navbar link opens its page and is marked as current", async ({
+  page,
+}) => {
   await page.goto("/");
 
   // Scoped to the navbar: the home page also has a "Learn more about me"
@@ -31,10 +30,14 @@ test("a navbar link opens its page and is marked as current", async ({ page }) =
   await expect(aboutLink).toHaveAttribute("aria-current", "page");
 });
 
-test("an unknown URL shows the not-found page with a way back", async ({ page }) => {
+test("an unknown URL shows the not-found page with a way back", async ({
+  page,
+}) => {
   await page.goto("/no-such-page");
 
-  await expect(page.getByRole("heading", { name: "Page not found" })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Page not found" }),
+  ).toBeVisible();
 
   await page.getByRole("link", { name: "Back to Home" }).click();
   await expect(page).toHaveURL("/");
