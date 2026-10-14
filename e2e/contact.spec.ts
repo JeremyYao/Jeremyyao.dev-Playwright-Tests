@@ -8,9 +8,11 @@ import { expect, test } from "@playwright/test";
 // Forms: find a field by its label, type into it, and check the validation
 // message. Nothing is submitted, so no message is ever sent.
 
-// Runs before each test in this file.
+// Runs before each test in this file. The form ignores input until React has
+// hydrated the page, so wait for the contact page to mark <html> as hydrated.
 test.beforeEach(async ({ page }) => {
   await page.goto("/contact");
+  await expect(page.locator("html")).toHaveAttribute("data-hydrated", "true");
 });
 
 test("a required field left empty shows an error", async ({ page }) => {

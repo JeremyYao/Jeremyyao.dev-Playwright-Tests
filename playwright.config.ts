@@ -6,16 +6,10 @@
 import { defineConfig, devices } from "@playwright/test";
 
 /**
- * Where the dev server listens during a run: an IP address, not `localhost`.
- * Vite listens on whichever address `localhost` resolves to first, which here
- * is IPv6 `::1` alone, while a browser may send `localhost` to IPv4
- * `127.0.0.1`. Then the first `page.goto` fails with ERR_CONNECTION_REFUSED
- * and the test never leaves about:blank.
+ * The site under test: the live site, unless `BASE_URL` names another one,
+ * such as a preview deploy or a local dev server.
  */
-const HOST = "127.0.0.1";
-/** `--strictPort` below keeps the dev server from moving off this port. */
-const PORT = 5173;
-const BASE_URL = `http://${HOST}:${PORT}`;
+const BASE_URL = process.env.BASE_URL ?? "https://jeremyyao.dev";
 
 export default defineConfig({
   testDir: "e2e",
@@ -35,10 +29,4 @@ export default defineConfig({
   // One browser keeps the first run quick. Add `devices["Desktop Firefox"]` or
   // `devices["Desktop Safari"]` here to run every test in those as well.
   projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
-  // Starts the dev server for the run, or uses one already running at BASE_URL.
-  webServer: {
-    command: `yarn dev --host ${HOST} --port ${PORT} --strictPort`,
-    url: BASE_URL,
-    reuseExistingServer: true,
-  },
 });
