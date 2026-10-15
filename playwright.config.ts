@@ -23,8 +23,36 @@ export default defineConfig({
     // A failing test keeps a trace: a recording of every step, with the page
     // as it looked at each one. The HTML report links to it.
     trace: "retain-on-failure",
+
+    // A failing test keeps a screenshot of the page at the moment of failure.
+    screenshot: "only-on-failure",
+
+    // A failing test keeps a video recording of the test run. The HTML report
+    // links to it.
+    video: "retain-on-failure",
   },
   // One browser keeps the first run quick. Add `devices["Desktop Firefox"]` or
   // `devices["Desktop Safari"]` here to run every test in those as well.
-  projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
+  projects: [
+    // Desktop viewports
+    { name: "chromium", use: { ...devices["Desktop Chrome"] } },
+    {
+      name: "firefox",
+      use: { ...devices["Desktop Firefox"] },
+    },
+    {
+      name: "webkit",
+      use: { ...devices["Desktop Safari"] },
+    },
+
+    // Mobile viewports
+    {
+      name: "Mobile Chrome",
+      use: { ...devices["Pixel 5"] },
+    },
+    {
+      name: "Mobile Safari",
+      use: { ...devices["iPhone 12"] },
+    },
+  ],
 });

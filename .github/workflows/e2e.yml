@@ -36,8 +36,8 @@ jobs:
         run: yarn format:check
 
       # --with-deps also installs the Linux libraries Chromium needs.
-      - name: Install Chromium
-        run: yarn playwright install --with-deps chromium
+      - name: Install Playwright browsers
+        run: yarn playwright install --with-deps
 
       - name: Run tests
         run: yarn test:e2e
@@ -50,4 +50,28 @@ jobs:
         with:
           name: playwright-report
           path: playwright-report/
+          retention-days: 14
+
+      - name: Upload traces
+        uses: actions/upload-artifact@v7
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-traces
+          path: playwright-traces/
+          retention-days: 14
+
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v7
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-screenshots
+          path: playwright-screenshots/
+          retention-days: 14
+
+      - name: Upload videos
+        uses: actions/upload-artifact@v7
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-videos
+          path: playwright-videos/
           retention-days: 14

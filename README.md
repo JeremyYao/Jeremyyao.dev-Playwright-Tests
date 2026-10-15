@@ -17,12 +17,12 @@ Playwright end-to-end tests for [jeremyyao.dev](https://jeremyyao.dev). This rep
    yarn install
    ```
 
-2. **Install the browser**
+2. **Install the browsers**
 
    `yarn install` does not download it. Run this once, and again after a Playwright upgrade:
 
    ```bash
-   yarn playwright install chromium
+   yarn playwright install
    ```
 
 ## Running the tests
