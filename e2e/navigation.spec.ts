@@ -42,3 +42,16 @@ test("an unknown URL shows the not-found page with a way back", async ({
   await page.getByRole("link", { name: "Back to Home" }).click();
   await expect(page).toHaveURL("/");
 });
+
+test("an unknown URL requesting .env should show the not-found page", async ({
+  page,
+}) => {
+  await page.goto("/.env");
+
+  await expect(
+    page.getByRole("heading", { name: "Page not found" }),
+  ).toBeVisible();
+
+  await page.getByRole("link", { name: "Back to Home" }).click();
+  await expect(page).toHaveURL("/");
+});
