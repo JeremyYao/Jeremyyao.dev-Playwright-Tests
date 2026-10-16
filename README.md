@@ -67,3 +67,5 @@ GitHub Actions runs the checks and the tests on every push, to any branch, and e
 ## Troubleshooting
 
 If every test fails with the page title `Just a moment...`, Cloudflare showed the browser its bot check instead of the site. The tests cannot pass until Cloudflare lets them through.
+
+Cloudflare's Bot Fight Mode is stricter with plain HTTP requests than with a browser: from CI's datacenter IPs, it challenges every one. That's why the `/api/contact` tests call the API with `fetch()` from inside the page, as the contact form does, rather than through Playwright's `request` fixture. The two tests that POST without an `Origin` header can't do that, since a browser always adds one, so they skip themselves whenever Cloudflare challenges them. They still run from a home connection.
